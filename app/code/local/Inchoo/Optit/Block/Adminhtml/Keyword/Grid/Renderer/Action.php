@@ -32,7 +32,7 @@ class Inchoo_Optit_Block_Adminhtml_Keyword_Grid_Renderer_Action extends Inchoo_O
                 'url'     => $this->getUrl('*/optit_message/sms', array(
                     'id' => $row->getId(),
                     'type' => Inchoo_Optit_Model_Subscription::SUBSCRIPTION_TYPE_KEYWORD,
-                    'keyword_name' => $row->getKeywordName(),
+                    'type_name' => $row->getKeywordName(),
                 )),
                 'caption' => $this->__('Send SMS'),
                 'confirm' => $this->__('Are you sure you want to send SMS to these subscribers?'),
@@ -42,7 +42,7 @@ class Inchoo_Optit_Block_Adminhtml_Keyword_Grid_Renderer_Action extends Inchoo_O
                 'url'     => $this->getUrl('*/optit_message/mms', array(
                     'id' => $row->getId(),
                     'type' => Inchoo_Optit_Model_Subscription::SUBSCRIPTION_TYPE_KEYWORD,
-                    'keyword_name' => $row->getKeywordName(),
+                    'type_name' => $row->getKeywordName(),
                 )),
                 'caption' => $this->__('Send MMS'),
                 'confirm' => $this->__('Are you sure you want to send MMS to these subscribers?'),

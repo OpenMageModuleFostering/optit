@@ -26,11 +26,12 @@ class Inchoo_Optit_Block_Adminhtml_Message_Sms_Edit extends Mage_Adminhtml_Block
             $this->_formScripts[] = "function addToBulk()" .
                 "{editForm.submit($('edit_form').action + 'bulk/true/')}";
         }
-    }
 
-    public function getHeaderText()
-    {
-        return $this->__("Send Message to '%s'", $this->getRequest()->getParam('type_name'));
+        if (!$this->getRequest()->getParam('type')) {
+            $this->_headerText = $this->__('Send Message');
+        } else {
+            $this->_headerText = $this->__("Send Message to '%s'", $this->getRequest()->getParam('type_name'));
+        }
     }
 
     public function getSaveUrl()
