@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+    <adminhtml_optit_keyword_index>
+        <reference name="content">
+            <block type="optit/adminhtml_keyword" name="optit_keyword"/>
+        </reference>
+        <reference name="adminhtml_keyword.grid">
+            <action method="setTemplate">
+                <template>optit/grid.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_optit_keyword_index>
+
+    <adminhtml_optit_keyword_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="optit/adminhtml_keyword_grid" name="optit_keyword_grid"/>
+        </block>
+    </adminhtml_optit_keyword_grid>
+
+    <adminhtml_optit_subscription_index>
+        <reference name="content">
+            <block type="optit/adminhtml_subscription" name="optit_subscription"/>
+        </reference>
+        <reference name="adminhtml_subscription.grid">
+            <action method="setTemplate">
+                <template>optit/grid.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_optit_subscription_index>
+
+    <adminhtml_optit_subscription_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="optit/adminhtml_subscription_grid" name="optit_subscription_grid"/>
+        </block>
+    </adminhtml_optit_subscription_grid>
+
+    <adminhtml_optit_subscription_interest>
+        <reference name="content">
+            <block type="optit/adminhtml_subscription" name="optit_subscription"/>
+        </reference>
+        <reference name="adminhtml_subscription.grid">
+            <action method="setTemplate">
+                <template>optit/grid.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_optit_subscription_interest>
+
+    <adminhtml_optit_interest_index>
+        <reference name="content">
+            <block type="optit/adminhtml_interest" name="optit_interest"/>
+        </reference>
+        <reference name="adminhtml_interest.grid">
+            <action method="setTemplate">
+                <template>optit/grid.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_optit_interest_index>
+
+    <adminhtml_optit_interest_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="optit/adminhtml_interest_grid" name="optit_interest_grid"/>
+        </block>
+    </adminhtml_optit_interest_grid>
+
+    <adminhtml_optit_member_index>
+        <reference name="content">
+            <block type="optit/adminhtml_member" name="optit_member"/>
+        </reference>
+        <reference name="adminhtml_member.grid">
+            <action method="setTemplate">
+                <template>optit/grid.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_optit_member_index>
+
+    <adminhtml_optit_message_sms>
+        <reference name="content">
+            <block type="optit/adminhtml_message_sms_edit" name="optit_send_sms" />
+        </reference>
+    </adminhtml_optit_message_sms>
+
+    <adminhtml_optit_message_mms>
+        <reference name="content">
+            <block type="optit/adminhtml_message_mms_edit" name="optit_send_mms" />
+        </reference>
+    </adminhtml_optit_message_mms>
+
+    <adminhtml_optit_bulk_sms>
+        <reference name="content">
+            <block type="optit/adminhtml_message_sms" name="optit_bulk_sms" />
+        </reference>
+    </adminhtml_optit_bulk_sms>
+
+    <adminhtml_optit_bulk_smsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="optit/adminhtml_message_sms_grid" name="optit_message_sms_grid"/>
+        </block>
+    </adminhtml_optit_bulk_smsgrid>
+
+    <adminhtml_optit_bulk_mms>
+        <reference name="content">
+            <block type="optit/adminhtml_message_mms" name="optit_bulk_mms" />
+        </reference>
+    </adminhtml_optit_bulk_mms>
+
+    <adminhtml_optit_bulk_mmsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="optit/adminhtml_message_mms_grid" name="optit_message_mms_grid"/>
+        </block>
+    </adminhtml_optit_bulk_mmsgrid>
+</layout>

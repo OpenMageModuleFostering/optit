@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <menu>
+        <promo>
+            <children>
+                <optit>
+                    <title>Opt It</title>
+                    <sort_order>100</sort_order>
+                    <children>
+                        <optit_bulk>
+                            <title>Bulk Messaging</title>
+                            <sort_order>10</sort_order>
+                            <children>
+                                <optit_bulk_sms>
+                                    <title>SMS</title>
+                                    <sort_order>10</sort_order>
+                                    <action>adminhtml/optit_bulk/sms</action>
+                                </optit_bulk_sms>
+                                <optit_bulk_mms>
+                                    <title>MMS</title>
+                                    <sort_order>20</sort_order>
+                                    <action>adminhtml/optit_bulk/mms</action>
+                                </optit_bulk_mms>
+                            </children>
+                        </optit_bulk>
+                        <optit_keywords>
+                            <title>Keywords</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/optit_keyword</action>
+                        </optit_keywords>
+                        <optit_members>
+                            <title>Members</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/optit_member</action>
+                        </optit_members>
+                        <optit_send>
+                            <title>Send Message</title>
+                            <sort_order>40</sort_order>
+                            <children>
+                                <optit_send_sms>
+                                    <title>SMS</title>
+                                    <sort_order>10</sort_order>
+                                    <action>adminhtml/optit_message/sms</action>
+                                </optit_send_sms>
+                                <optit_send_mms>
+                                    <title>MMS</title>
+                                    <sort_order>20</sort_order>
+                                    <action>adminhtml/optit_message/mms</action>
+                                </optit_send_mms>
+                            </children>
+                        </optit_send>
+                        <optit_config>
+                            <title>Settings</title>
+                            <sort_order>50</sort_order>
+                            <action>adminhtml/system_config/edit/section/promo</action>
+                        </optit_config>
+                    </children>
+                </optit>
+            </children>
+        </promo>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <promo>
+                        <children>
+                            <optit translate="title">
+                                <title>Opt It</title>
+                                <sort_order>10</sort_order>
+                                <children>
+                                    <optit_keywords translate="title">
+                                        <title>Opt It Keywords</title>
+                                        <sort_order>0</sort_order>
+                                    </optit_keywords>
+                                </children>
+                            </optit>
+                        </children>
+                    </promo>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <optit>
+                                        <title>Opt It</title>
+                                        <sort_order>100</sort_order>
+                                    </optit>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

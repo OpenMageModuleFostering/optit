@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <sections>
+        <promo>
+            <groups>
+                <optit translate="label" module="optit">
+                    <label>Opt It</label>
+                    <show_in_default>1</show_in_default>
+                    <sort_order>10</sort_order>
+                    <fields>
+                        <optit_username translate="label comment">
+                            <label>Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Opt It Username</comment>
+                        </optit_username>
+                        <optit_password translate="label comment">
+                            <label>Password</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Opt It Password</comment>
+                        </optit_password>
+                    </fields>
+                </optit>
+            </groups>
+        </promo>
+    </sections>
+</config>
