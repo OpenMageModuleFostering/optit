@@ -3,16 +3,25 @@
 
 class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
 {
-    const SUBSCRIPTION_TYPE_KEYWORD  = 'keyword';
+    const SUBSCRIPTION_TYPE_KEYWORD = 'keyword';
     const SUBSCRIPTION_TYPE_INTEREST = 'interest';
-    const SUBSCRIPTION_TYPE_MEMBER   = 'member';
+    const SUBSCRIPTION_TYPE_MEMBER = 'member';
+
+    const SUBSCRIPTION_TYPE_TO_SUBSCRIBE = "0";
+    const SUBSCRIPTION_TYPE_SUBSCRIBED = "1";
+    const SUBSCRIPTION_TYPE_KEYWORD_SUBSCRIBED = "2";
 
     protected $_urlKey = 'subscriptions';
 
+    public function _construct()
+    {
+        $this->_init('optit/subscription');
+        parent::_construct();
+    }
 
     /**
      * Get all subscription by keyword or interest.
-     * 
+     *
      * @param string $type
      * @param int $id
      * @param array $params
@@ -93,7 +102,7 @@ class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
      *  member_id - the member_id of a member. It is the ID attribute in the Members entity and can be viewed using the Get Member method. (Phone or member_id is required)
      * Method: POST
      * http://api.optitmobile.com/1/interests/{interest_id}/subscriptions.{format}
-     * 
+     *
      * @param $interestId
      * @param array $params
      * @return mixed
@@ -114,7 +123,7 @@ class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
      * Unsubscribe a member from all keywords.
      * Method: DELETE
      * http://api.optitmobile.com/1/subscription/{phone}.{format}
-     * 
+     *
      * @param string $phone
      * @return mixed
      * @throws Zend_Http_Client_Exception
@@ -155,7 +164,7 @@ class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
      * Delete a subscribed member from an interest.
      * Method: DELETE
      * http://api.optitmobile.com/1/interests/{interest_id}/subscriptions/{phone}.{format}
-     * 
+     *
      * @param int $interestId
      * @param string $memberPhone
      * @return mixed
@@ -164,7 +173,7 @@ class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
     public function unsubscribeMemberFromInterest($interestId, $memberPhone)
     {
         $uri = $this->_composeUri(
-            'interests/%s/' . $this->_urlKey .'/%s',
+            'interests/%s/' . $this->_urlKey . '/%s',
             array($interestId, $memberPhone)
         );
 
@@ -215,7 +224,7 @@ class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
      *  signup_date_end - yyyymmddhhmmss
      * Method: GET
      * http://api.optitmobile.com/1/keywords/{keyword_id}/subscriptions.{format}
-     * 
+     *
      * @param $keywordId
      * @param array $params
      * @return mixed
@@ -230,5 +239,64 @@ class Inchoo_Optit_Model_Subscription extends Inchoo_Optit_Model_Abstract
 
         $response = $this->getClient()->setUri($uri)->setParameterGet($params)->request(Zend_Http_Client::GET);
         return $this->decodeAndCheck($response->getBody());
+    }
+
+    public function addToQueue()
+    {
+        if (!$this->_getSubscriptionFromDB()) {
+            $this->_prepareForSave()->save();
+        }
+        return $this;
+    }
+
+    protected function _prepareForSave()
+    {
+        $quote = $this->getQuote();
+        $billingAddress = $quote->getBillingAddress();
+        $customerCellPhone = $this->_validateCustomerCellPhone($quote->getCustomerCellphone());
+
+        $this->setData(array(
+            'keyword' => $quote->getKeyword(),
+            'interest' => $quote->getInterest(),
+            'phone' => $customerCellPhone,
+            'email_address' => $quote->getCustomerEmail(),
+            'first_name' => $quote->getCustomerFirstname(),
+            'last_name' => $quote->getCustomerLastname(),
+            'gender' => $quote->getCustomerGender(),
+            'birth_date' => $quote->getCustomerDob(),
+            'address1' => $billingAddress->getStreet1(),
+            'address2' => $billingAddress->getStreet2(),
+            'city' => $billingAddress->getCity(),
+            'state' => $billingAddress->getRegionCode(),
+            'zip' => $billingAddress->getPostcode(),
+            'status' => self::SUBSCRIPTION_TYPE_TO_SUBSCRIBE,
+        ));
+
+        return $this;
+    }
+
+    protected function _validateCustomerCellPhone($customerCellphone)
+    {
+        $error = false;
+        if (!Zend_Validate::is($customerCellphone, 'NotEmpty')) {
+            $error = true;
+        }
+
+        if (!Zend_Validate::is($customerCellphone, 'Digits')) {
+            $error = true;
+        }
+
+        if ($error) {
+            Mage::throwException('Cellphone number not valid');
+        }
+
+        return $customerCellphone;
+    }
+
+    protected function _getSubscriptionFromDB()
+    {
+        $interest = $this->getQuote()->getInterest();
+        $phone = $this->getQuote()->getCustomerCellphone();
+        return $this->getResource()->getSubscriptionByPhoneAndInterest($interest, $phone);
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+    <checkout_onepage_index>
+        <reference name="checkout.onepage.billing">
+            <action method="setTemplate"><template>optit/checkout/onepage/billing.phtml</template></action>
+            <block type="optit/subscribe" name="optit.subscribe" template="optit/checkout/onepage/subscribe.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+</layout>

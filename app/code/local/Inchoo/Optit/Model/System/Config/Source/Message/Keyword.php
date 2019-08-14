@@ -21,6 +21,7 @@ class Inchoo_Optit_Model_System_Config_Source_Message_Keyword
             $this->_populateData($keywords);
         }
 
+        Mage::register('optit_keyword_first', $this->_data[0]);
         return $this->_data;
     }
 
@@ -36,5 +37,24 @@ class Inchoo_Optit_Model_System_Config_Source_Message_Keyword
             $this->_data[$this->_key]['label'] = $value['keyword']['keyword_name'];
             $this->_key++;
         }
+    }
+
+    public function toOptionArrayWithAuthentication()
+    {
+        $model = Mage::getModel('optit/keyword');
+
+        try {
+            $model->getAllKeywords();
+        } catch (Mage_Core_Exception $e) {
+            return array();
+        }
+
+        $keywords = self::toOptionArray();
+        $data = array();
+        foreach ($keywords as $key => $keyword) {
+            $data[$keyword['value']]= $keyword['label'];
+        }
+
+        return $data;
     }
 }

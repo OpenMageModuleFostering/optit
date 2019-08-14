@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Inchoo_Optit>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Inchoo_Optit>
     </modules>
     <global>
@@ -30,6 +30,9 @@
                     <bulk_message_phones>
                         <table>optit_bulk_phones</table>
                     </bulk_message_phones>
+                    <subscription>
+                        <table>optit_subscribe_queue</table>
+                    </subscription>
                 </entities>
             </optit_resource>
         </models>
@@ -64,8 +67,54 @@
     <default>
         <promo>
             <optit>
-                <optit_password backend_model="adminhtml/system_config_backend_encrypted" />
+                <optit_password backend_model="adminhtml/system_config_backend_encrypted"/>
             </optit>
+        </promo>
+    </default>
+    <frontend>
+        <events>
+            <sales_quote_save_after>
+                <observers>
+                    <inchoo_optit>
+                        <class>optit/observer</class>
+                        <method>subscribeMemberToTextNotifications</method>
+                    </inchoo_optit>
+                </observers>
+            </sales_quote_save_after>
+            <sales_order_place_after>
+                <observers>
+                    <inchoo_optit>
+                        <class>optit/observer</class>
+                        <method>enableSubscription</method>
+                    </inchoo_optit>
+                </observers>
+            </sales_order_place_after>
+        </events>
+        <layout>
+            <updates>
+                <optit>
+                    <file>optit.xml</file>
+                </optit>
+            </updates>
+        </layout>
+    </frontend>
+    <crontab>
+        <jobs>
+            <optit_subscribe_members>
+                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <run><model>optit/observer::subscribeMembers</model></run>
+            </optit_subscribe_members>
+            <optit_clean_subscribe_table>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>optit/observer::cleanSubscribeTable</model></run>
+            </optit_clean_subscribe_table>
+        </jobs>
+    </crontab>
+    <default>
+        <promo>
+            <optit_checkout>
+                <optit_max_cron_retries>10</optit_max_cron_retries>
+            </optit_checkout>
         </promo>
     </default>
 </config>

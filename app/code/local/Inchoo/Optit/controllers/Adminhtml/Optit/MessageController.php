@@ -32,7 +32,7 @@ class Inchoo_Optit_Adminhtml_Optit_MessageController extends Mage_Adminhtml_Cont
         $params = $this->getRequest()->getParams();
 
         try {
-            $data = Mage::getSingleton('optit/system_config_source_message_keyword')->toOptionArray();
+            $data = Mage::getSingleton('optit/system_config_source_message_keyword')->toOptionArray(false, true);
             $form = $this->getLayout()->getBlock('optit_send_sms')->getChild('form');
             if ($form) {
                 $form->setKeywords($data);

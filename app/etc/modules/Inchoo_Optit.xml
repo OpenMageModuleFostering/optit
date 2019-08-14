@@ -4,6 +4,9 @@
         <Inchoo_Optit>
             <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Checkout/>
+            </depends>
         </Inchoo_Optit>
     </modules>
 </config>
