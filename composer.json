@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Optit",
+    "name": "OpenMageModuleFostering\/Optit",
     "type": "magento-module",
     "license": "GNU-General-Public-License-(GPL)",
     "homepage": "",
     "description": "Integration with Opt It SMS and MMS",
     "authors": [
-    {
-        "name": "Technivant",
-        "email": "info@technivant.com"
-    }
-],
+        {
+            "name": "Technivant",
+            "email": "info@technivant.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
